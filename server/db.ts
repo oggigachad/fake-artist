@@ -10,14 +10,6 @@ const db = new Database(dbPath);
 // Enable WAL mode for better concurrent performance
 db.pragma('journal_mode = WAL');
 
-// Create indexes for faster lookups
-db.exec(`
-  CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
-  CREATE INDEX IF NOT EXISTS idx_users_id ON users(id);
-  CREATE INDEX IF NOT EXISTS idx_inventory_user ON inventory(user_id);
-  CREATE INDEX IF NOT EXISTS idx_game_participants_user ON game_participants(user_id);
-`);
-
 const JWT_SECRET = process.env.JWT_SECRET || 'fake-artist-secret-change-in-production';
 const TOKEN_EXPIRY = '7d';
 
@@ -84,6 +76,14 @@ db.exec(`
     FOREIGN KEY(user_id) REFERENCES users(id),
     PRIMARY KEY(user_id, achievement_id)
   );
+`);
+
+// Create indexes after tables exist.
+db.exec(`
+    CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+    CREATE INDEX IF NOT EXISTS idx_users_id ON users(id);
+    CREATE INDEX IF NOT EXISTS idx_inventory_user ON inventory(user_id);
+    CREATE INDEX IF NOT EXISTS idx_game_participants_user ON game_participants(user_id);
 `);
 
 // Migrations: Add columns that may be missing from older database schemas
