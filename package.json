@@ -1,0 +1,10 @@
+{
+  "name": "fake-artist-game",
+  "version": "1.0.0",
+  "scripts": {
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "start": "echo \"Please run 'npm run dev:server' and 'npm run dev:client' in separate terminals.\""
+  },
+  "dependencies": {}
+}
