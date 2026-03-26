@@ -12,5 +12,5 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: FRONTEND_URL
-        value: https://your-frontend-url.com
+        value: https://fake-artist-phi.vercel.app
     autoDeploy: true
