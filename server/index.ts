@@ -17,6 +17,7 @@ const app = express();
 app.use(cors({
     origin: [
         process.env.FRONTEND_URL || 'http://localhost:3000',
+        'https://fake-artist-phi.vercel.app',
         'http://localhost:3001',
         'http://localhost:3002',
         'http://localhost:3003'
@@ -31,6 +32,7 @@ const io = new Server<ClientToServerEvents, ServerToClientEvents>(server, {
     cors: {
         origin: [
             process.env.FRONTEND_URL || 'http://localhost:3000',
+            'https://fake-artist-phi.vercel.app',
             'http://localhost:3001',
             'http://localhost:3002',
             'http://localhost:3003'
