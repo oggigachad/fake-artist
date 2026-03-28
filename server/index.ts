@@ -387,6 +387,10 @@ function cleanupRoom(roomId: string) {
 
 // ===================== REST API ENDPOINTS =====================
 
+app.get('/', (_req, res) => {
+    res.json({ status: 'ok', message: 'Fake Artist server is running' });
+});
+
 app.post('/api/auth/register', async (req, res) => {
     const { username, email, password } = req.body;
     const result = await registerUser(username, email, password);
