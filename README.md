@@ -1,163 +1,251 @@
-# Fake Artist Game 🎨
+<div align="center">
 
-A multiplayer drawing game where players must identify the fake artist among them!
+# 🎨 FAKE ARTIST
 
-## 🚀 Quick Start
+### *Deceive. Draw. Detect.*
+
+A real-time multiplayer party game where everyone draws together — except one player who doesn't know the secret word. Can you find the **Fake Artist** before they blend in?
+
+[![Live Demo](https://img.shields.io/badge/▶_Play_Now-fake--artist--phi.vercel.app-ff1493?style=for-the-badge&logo=vercel)](https://fake-artist-phi.vercel.app/)
+[![Backend](https://img.shields.io/badge/API-Render-46E3B7?style=for-the-badge&logo=render)](https://fake-artist-3d5c.onrender.com)
+[![GitHub](https://img.shields.io/badge/Source-GitHub-181717?style=for-the-badge&logo=github)](https://github.com/oggigachad/fake-artist)
+
+</div>
+
+---
+
+## 📸 Screenshots
+
+<div align="center">
+
+| Landing Page | Player Dashboard |
+|:---:|:---:|
+| ![Landing Page](screenshots/landing-page.png) | ![Dashboard](screenshots/dashboard.png) |
+
+| Game Lobby & Settings | Item Shop |
+|:---:|:---:|
+| ![Lobby Settings](screenshots/lobby-settings.png) | ![Shop](screenshots/shop.png) |
+
+| Onboarding |
+|:---:|
+| ![Onboarding](screenshots/onboarding.png) |
+
+</div>
+
+---
+
+## 🎮 Game Modes
+
+| Mode | Players | Description |
+|------|---------|-------------|
+| 🎭 **Fake Artist** | 3+ | Everyone draws on a shared canvas. One player is secretly the Fake Artist who received a *different* word. Vote to find them! |
+| ✏️ **Draw & Guess** | 2 | Classic draw-and-guess — one player draws, the other guesses the word. Take turns across 5 rounds. |
+| ⚡ **Speed Round** | 2+ | Draw & Guess on steroids — 15 seconds per round. Fast reflexes only! |
+| 👥 **Team Mode** | 4+ | 2v2+ with a Fake Artist on each team. Coordinate with your team to find the impostor! |
+
+---
+
+## ✨ Features
+
+- 🔌 **Real-Time Multiplayer** — Powered by Socket.IO with WebSocket transport
+- 🔐 **Authentication** — Guest login, email registration, or full account with JWT
+- 🏠 **Private Rooms** — Create rooms with shareable codes, up to 8 players
+- ⚙️ **Customizable Settings** — Difficulty, round time (30s/60s/90s), word packs, game modes
+- 💰 **Economy System** — Earn coins & XP for playing, level up your profile
+- 🛒 **Cosmetic Shop** — Buy custom brushes (Neon, Galaxy, Rainbow), colors, avatars, and titles
+- 🏆 **Leaderboards & Achievements** — Compete globally, unlock 20+ achievements
+- 📊 **Player Stats** — Track wins, streaks, games played, correct guesses, and total strokes
+- 🔄 **Reconnection Support** — Drop connection mid-game? Rejoin seamlessly within 30 seconds
+- 📱 **Responsive Design** — Plays great on desktop and mobile
+- 🎨 **Interactive Onboarding** — Step-by-step tutorial for new players
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+| Technology | Purpose |
+|---|---|
+| [Next.js 16](https://nextjs.org/) | React framework with App Router |
+| [React 19](https://react.dev/) | UI library |
+| [TypeScript](https://www.typescriptlang.org/) | Type safety |
+| [Tailwind CSS v4](https://tailwindcss.com/) | Utility-first styling |
+| [Framer Motion](https://www.framer.com/motion/) | Animations & transitions |
+| [Socket.IO Client](https://socket.io/) | Real-time communication |
+
+### Backend
+| Technology | Purpose |
+|---|---|
+| [Node.js](https://nodejs.org/) | Runtime |
+| [Express](https://expressjs.com/) | HTTP server & REST API |
+| [Socket.IO](https://socket.io/) | WebSocket server |
+| [TypeScript](https://www.typescriptlang.org/) | Type safety |
+| [Better-SQLite3](https://github.com/WiseLibs/better-sqlite3) | Embedded database |
+| [JWT](https://jwt.io/) | Authentication tokens |
+| [bcrypt](https://www.npmjs.com/package/bcryptjs) | Password hashing |
+
+### Deployment
+| Service | Usage |
+|---|---|
+| [Vercel](https://vercel.com/) | Frontend hosting |
+| [Render](https://render.com/) | Backend hosting |
+
+---
+
+## 📁 Project Structure
+
+```
+fake-artist/
+├── client/                     # Next.js frontend
+│   ├── src/
+│   │   ├── app/                # Pages (home, lobby, game)
+│   │   │   ├── page.tsx        # Landing page with auth
+│   │   │   ├── lobby/[roomId]/ # Pre-game lobby
+│   │   │   └── game/[roomId]/  # In-game canvas & UI
+│   │   ├── components/         # Reusable UI components
+│   │   │   ├── CanvasBoard.tsx # Drawing canvas
+│   │   │   ├── ShopModal.tsx   # Cosmetics shop
+│   │   │   └── UserProfile.tsx # Player stats card
+│   │   ├── hooks/              # Custom React hooks
+│   │   └── lib/                # Socket.IO client & utils
+│   └── .env.production         # Production backend URL
+├── server/                     # Express + Socket.IO backend
+│   ├── index.ts                # Main server (1300+ lines)
+│   ├── db.ts                   # SQLite database operations
+│   ├── economy.ts              # Coins, XP & leveling logic
+│   ├── shop.ts                 # Cosmetic items & inventory
+│   ├── store.ts                # In-memory room management
+│   ├── words.ts                # Word packs & categories
+│   └── types.ts                # Shared TypeScript types
+├── screenshots/                # README screenshots
+└── .env                        # Environment variables
+```
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v16 or higher)
-- npm or yarn
 
-### Installation
+- **Node.js** v16 or higher
+- **npm** or **yarn**
 
-1. **Clone the repository**
-   ```bash
-   cd fake-artist
-   ```
+### 1. Clone the repository
 
-2. **Install dependencies for both client and server**
-   ```bash
-   # Install server dependencies
-   cd server
-   npm install
-   cd ..
-
-   # Install client dependencies
-   cd client
-   npm install
-   cd ..
-   ```
-
-3. **Set up environment variables**
-   ```bash
-   # Copy the example env file
-   copy .env.example .env
-   # Edit .env and update JWT_SECRET with a secure random string
-   ```
-
-### Running the Application
-
-#### Option 1: Using the start script (Windows)
 ```bash
-start.bat
+git clone https://github.com/oggigachad/fake-artist.git
+cd fake-artist
 ```
 
-#### Option 2: Manual start (two terminals)
+### 2. Install dependencies
 
-**Terminal 1 - Backend:**
 ```bash
+# Server
+cd server
+npm install
+
+# Client
+cd ../client
+npm install
+```
+
+### 3. Set up environment variables
+
+```bash
+# In project root
+cp .env.example .env
+# Edit .env and set a secure JWT_SECRET
+```
+
+### 4. Run the application
+
+**Option A — Two terminals:**
+
+```bash
+# Terminal 1: Backend
 cd server
 npm run dev
-```
 
-**Terminal 2 - Frontend:**
-```bash
+# Terminal 2: Frontend
 cd client
 npm run dev
+```
+
+**Option B — Windows quick start:**
+
+```bash
+start.bat
 ```
 
 The game will be available at:
 - **Frontend:** http://localhost:3000
 - **Backend:** http://localhost:3001
 
-## 🎮 How to Play
-
-1. **Create or Join a Room**
-   - Sign in as a guest or create an account
-   - Create a new room or join with a room code
-
-2. **Game Modes**
-   - **Fake Artist (3+ players):** Everyone draws on the same canvas. Find the fake artist!
-   - **Draw & Guess (2 players):** Take turns drawing and guessing words
-
-3. **Earn Rewards**
-   - Win games to earn coins and XP
-   - Level up and unlock shop items
-   - Buy custom brushes and colors
-
-## 🛠️ Tech Stack
-
-### Frontend
-- Next.js 16
-- React 19
-- TypeScript
-- Tailwind CSS v4
-- Socket.io Client
-- Framer Motion
-
-### Backend
-- Node.js
-- Express
-- Socket.io
-- TypeScript
-- Better-SQLite3
-- JWT Authentication
-
-## 📁 Project Structure
-
-```
-fake-artist/
-├── client/          # Next.js frontend
-│   ├── src/
-│   │   ├── app/     # Pages and routes
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   └── lib/
-│   └── package.json
-├── server/          # Express backend
-│   ├── index.ts     # Main server file
-│   ├── db.ts        # Database operations
-│   ├── economy.ts   # Rewards system
-│   ├── shop.ts      # Shop items
-│   ├── store.ts     # Room management
-│   └── package.json
-└── .env             # Environment variables
-```
+---
 
 ## 🔧 Development
 
-### Server Development
 ```bash
+# Server (auto-reload with nodemon)
 cd server
-npm run dev          # Start with nodemon (auto-reload)
-npm run build        # Build TypeScript
-npm start            # Start production build
-```
+npm run dev
 
-### Client Development
-```bash
+# Server (production build)
+npm run build
+npm start
+
+# Client (Next.js dev server)
 cd client
-npm run dev          # Start Next.js dev server
-npm run build        # Build for production
-npm start            # Start production server
+npm run dev
+
+# Client (production build)
+npm run build
+npm start
 ```
 
-## 🌟 Features
-
-- **Real-time Multiplayer** with Socket.io
-- **Persistent User Accounts** with JWT authentication
-- **Economy System** with coins, XP, and leveling
-- **Cosmetic Shop** with custom brushes and colors
-- **Reconnection Support** - Rejoin games after disconnect
-- **Game History & Leaderboards**
-- **Responsive Design** - Works on desktop and mobile
+---
 
 ## 🐛 Troubleshooting
 
-### Port already in use
-If ports 3000 or 3001 are in use:
-- Change `PORT` in `.env`
-- Update `NEXT_PUBLIC_SERVER_URL` in `client/.env.local`
+| Issue | Solution |
+|---|---|
+| Port 3000/3001 in use | Change `PORT` in `.env` and update `NEXT_PUBLIC_SERVER_URL` in `client/.env.local` |
+| Database locked | Close other processes, delete `game.db-shm` and `game.db-wal` |
+| Socket connection failed | Ensure backend is running, check CORS in `server/index.ts` |
+| "Cannot GET /" on backend | A health check route exists at `/` — verify the server is deployed |
 
-### Database locked
-- Close any other processes accessing `game.db`
-- Delete `game.db-shm` and `game.db-wal` files
+---
 
-### Socket connection failed
-- Ensure backend is running on port 3001
-- Check CORS settings in `server/index.ts`
-- Verify `NEXT_PUBLIC_SERVER_URL` in client
+## 🌐 Deployment
+
+### Frontend (Vercel)
+1. Import the repo on [Vercel](https://vercel.com/)
+2. Set root directory to `client`
+3. Set env var: `NEXT_PUBLIC_SERVER_URL=https://your-backend-url.onrender.com`
+
+### Backend (Render)
+1. Create a new Web Service on [Render](https://render.com/)
+2. Set root directory to `server`
+3. Build command: `npm install && npm run build`
+4. Start command: `npm start`
+5. Set env vars: `JWT_SECRET`, `FRONTEND_URL`
+
+---
+
+## 👨‍💻 Author
+
+<div align="center">
+
+**Aakash Sarang**
+
+[![Portfolio](https://img.shields.io/badge/Portfolio-mainportfolio--red.vercel.app-ff1493?style=for-the-badge&logo=vercel)](https://mainportfolio-red.vercel.app/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Aakash_Sarang-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/aakash-sarang-38b681263/)
+[![GitHub](https://img.shields.io/badge/GitHub-oggigachad-181717?style=for-the-badge&logo=github)](https://github.com/oggigachad)
+
+</div>
+
+---
 
 ## 📝 License
 
-MIT
+MIT © [Aakash Sarang](https://github.com/oggigachad)
